@@ -108,16 +108,20 @@
         noButton.style.position = "relative";
         yesButton.style.position = "relative";
 
-        // Function to make No button move when hovered over
+        let noButtonPosition = 0; // This tracks how far the No button has moved (in pixels)
+
+        // Function to make No button move step by step when hovered over
         function moveNoButtonOnHover() {
-            // Move the No button to the right side of the screen
-            noButton.style.position = "absolute";
-            noButton.style.right = "0";
-            noButton.style.top = `${Math.random() * window.innerHeight - noButton.offsetHeight}px`;
-            noButton.style.transform = "none";
+            let stepSize = 10; // Move 10px (about 1cm) per hover
+
+            // If No button has not moved beyond screen width, move it
+            if (noButtonPosition + stepSize <= window.innerWidth - noButton.offsetWidth) {
+                noButtonPosition += stepSize;
+                noButton.style.left = `${noButtonPosition}px`;
+            }
         }
 
-        // When mouse hovers over No button, it will move to the right
+        // When mouse hovers over No button, it will move step by step
         noButton.addEventListener("mouseenter", moveNoButtonOnHover);
 
         // Show the GIF and message when Yes is clicked
