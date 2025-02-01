@@ -10,13 +10,17 @@
             text-align: center;
             background-color: pink;
             color: white;
-            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
         }
         .container {
             background: salmon;
             padding: 30px;
             border-radius: 20px;
-            display: inline-block;
             position: relative;
         }
         h1 {
@@ -25,15 +29,18 @@
         .buttons {
             margin-top: 20px;
             position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         button {
             padding: 10px 20px;
             font-size: 18px;
-            margin: 5px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
             position: absolute;
+            transition: transform 0.2s ease-in-out;
         }
         .yes {
             background-color: whitesmoke;
@@ -42,56 +49,65 @@
         .no {
             background-color: wheat;
             color: black;
-            z-index: 1; /* No button starts on top */
+            z-index: 1;
         }
         #gifContainer {
             margin-top: 20px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
         }
         #gifContainer img {
             width: 200px;
-            display: none;
+        }
+        #loveMessage {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: red;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Oyee will you be my Valentine? ❤️</h1>
+        <h1>Oyee, will you be my Valentine? ❤️</h1>
         <div class="buttons" id="buttonContainer">
-            <button class="yes" onclick="showGif()" style="position: static;">Yes</button>
-            <button class="no" id="noButton" onclick="addMoreYes()">No</button>
+            <button class="yes" id="yesButton" onclick="showGif()">Yes</button>
+            <button class="no" id="noButton" onclick="moveNoButton()">No</button>
         </div>
         <div id="gifContainer">
             <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
+            <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰</p>
         </div>
     </div>
 
     <script>
+        let speed = 5;
+        let noButton = document.getElementById("noButton");
+        let yesButton = document.getElementById("yesButton");
+
         function showGif() {
-            document.getElementById("yayGif").style.display = "block";
+            document.getElementById("gifContainer").style.display = "flex";
         }
 
-        function addMoreYes() {
-            let buttonContainer = document.getElementById("buttonContainer");
-            let noButton = document.getElementById("noButton");
-            let rect = noButton.getBoundingClientRect();
+        function moveNoButton() {
+            let windowWidth = window.innerWidth - 100;
+            let windowHeight = window.innerHeight - 100;
+            
+            // Move the No button randomly
+            let newX = Math.random() * windowWidth;
+            let newY = Math.random() * windowHeight;
 
-            // Create a new Yes button
-            let newYesButton = document.createElement("button");
-            newYesButton.innerText = "Yes";
-            newYesButton.classList.add("yes");
-            newYesButton.onclick = showGif;
+            noButton.style.position = "absolute";
+            noButton.style.left = newX + "px";
+            noButton.style.top = newY + "px";
 
-            // Position the new Yes button near the No button
-            newYesButton.style.left = `${rect.left - buttonContainer.getBoundingClientRect().left}px`;
-            newYesButton.style.top = `${rect.top - buttonContainer.getBoundingClientRect().top}px`;
+            // Increase speed
+            speed += 5;
 
-            // Append the new Yes button
-            buttonContainer.appendChild(newYesButton);
-
-            // Slowly move the "No" button down
-            noButton.style.top = `${(parseInt(noButton.style.top) || 0) + 5}px`;
-            noButton.style.left = `${(parseInt(noButton.style.left) || 0) + 5}px`;
+            // Increase Yes button size
+            yesButton.style.transform = `scale(${parseFloat(yesButton.style.transform.replace('scale(', '').replace(')', '')) * 2 || 2})`;
         }
     </script>
 
