@@ -21,10 +21,17 @@
             background: salmon;
             padding: 30px;
             border-radius: 20px;
+            display: inline-block;
             position: relative;
+            width: 250px; /* Ensures square shape */
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         h1 {
-            font-size: 2em;
+            font-size: 1.5em;
+            margin: 0;
         }
         .buttons {
             margin-top: 20px;
@@ -39,23 +46,30 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            position: absolute;
-            transition: transform 0.2s ease-in-out;
+            position: relative;
         }
         .yes {
             background-color: whitesmoke;
             color: black;
+            z-index: 2;
         }
         .no {
             background-color: wheat;
             color: black;
             z-index: 1;
+            position: absolute;
         }
         #gifContainer {
-            margin-top: 20px;
             display: none;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: pink;
         }
         #gifContainer img {
             width: 200px;
@@ -70,44 +84,49 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Oyee, will you be my Valentine? ❤️</h1>
-        <div class="buttons" id="buttonContainer">
-            <button class="yes" id="yesButton" onclick="showGif()">Yes</button>
-            <button class="no" id="noButton" onclick="moveNoButton()">No</button>
-        </div>
-        <div id="gifContainer">
-            <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-            <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰</p>
-        </div>
+    <div class="container" id="mainContainer">
+        <h1>Oyee chetta <br> Will you be my Valentine? <br> Will you? ❤️</h1>
+    </div>
+
+    <div class="buttons" id="buttonContainer">
+        <button class="yes" id="yesButton" onclick="showGif()">Yes</button>
+        <button class="no" id="noButton">No</button>
+    </div>
+
+    <div id="gifContainer">
+        <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
+        <p id="loveMessage">I love you Praveen!!! 💖 <br> You make my world brighter every day! 🌸</p>
     </div>
 
     <script>
-        let speed = 5;
         let noButton = document.getElementById("noButton");
         let yesButton = document.getElementById("yesButton");
 
-        function showGif() {
-            document.getElementById("gifContainer").style.display = "flex";
-        }
-
+        // Make No button move freely across the screen
         function moveNoButton() {
-            let windowWidth = window.innerWidth - 100;
-            let windowHeight = window.innerHeight - 100;
-            
-            // Move the No button randomly
+            let windowWidth = window.innerWidth - noButton.clientWidth;
+            let windowHeight = window.innerHeight - noButton.clientHeight;
+
             let newX = Math.random() * windowWidth;
             let newY = Math.random() * windowHeight;
 
-            noButton.style.position = "absolute";
             noButton.style.left = newX + "px";
             noButton.style.top = newY + "px";
+        }
 
-            // Increase speed
-            speed += 5;
+        // No button moves continuously
+        setInterval(moveNoButton, 500);
 
-            // Increase Yes button size
-            yesButton.style.transform = `scale(${parseFloat(yesButton.style.transform.replace('scale(', '').replace(')', '')) * 2 || 2})`;
+        function showGif() {
+            // Hide everything except the GIF and message
+            document.body.innerHTML = '';
+            let gifContainer = document.createElement("div");
+            gifContainer.id = "gifContainer";
+            gifContainer.innerHTML = `
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
+                <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
+            `;
+            document.body.appendChild(gifContainer);
         }
     </script>
 
