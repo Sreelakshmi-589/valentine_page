@@ -16,21 +16,20 @@
             height: 100vh;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
         .container {
             background: salmon;
-            padding: 30px;
+            padding: 40px;
             border-radius: 20px;
-            display: inline-block;
-            position: relative;
-            width: 250px; /* Ensures square shape */
-            height: 250px;
+            width: 300px; /* Bigger square */
+            height: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         h1 {
-            font-size: 1.5em;
+            font-size: 1.8em;
             margin: 0;
         }
         .buttons {
@@ -41,7 +40,7 @@
             gap: 20px;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 18px;
             border: none;
             cursor: pointer;
@@ -72,12 +71,12 @@
             background: pink;
         }
         #gifContainer img {
-            width: 200px;
+            width: 250px;
         }
         #loveMessage {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
             color: red;
         }
     </style>
@@ -85,7 +84,7 @@
 <body>
 
     <div class="container" id="mainContainer">
-        <h1>Oyee chetta <br> Will you be my Valentine? <br> Will you? ❤️</h1>
+        <h1>Oyee, will you be my Valentine? ❤️</h1>
     </div>
 
     <div class="buttons" id="buttonContainer">
@@ -95,12 +94,21 @@
 
     <div id="gifContainer">
         <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-        <p id="loveMessage">I love you Praveen!!! 💖 <br> You make my world brighter every day! 🌸</p>
+        <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
     </div>
 
     <script>
         let noButton = document.getElementById("noButton");
         let yesButton = document.getElementById("yesButton");
+        let mainContainer = document.getElementById("mainContainer");
+        let buttonContainer = document.getElementById("buttonContainer");
+        let gifContainer = document.getElementById("gifContainer");
+
+        // Keep No button in the center initially
+        noButton.style.position = "absolute";
+        noButton.style.left = "50%";
+        noButton.style.top = "50%";
+        noButton.style.transform = "translate(-50%, -50%)";
 
         // Make No button move freely across the screen
         function moveNoButton() {
@@ -112,6 +120,7 @@
 
             noButton.style.left = newX + "px";
             noButton.style.top = newY + "px";
+            noButton.style.transform = "none";
         }
 
         // No button moves continuously
@@ -119,16 +128,14 @@
 
         function showGif() {
             // Hide everything except the GIF and message
-            document.body.innerHTML = '';
-            let gifContainer = document.createElement("div");
-            gifContainer.id = "gifContainer";
-            gifContainer.innerHTML = `
-                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-                <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
-            `;
-            document.body.appendChild(gifContainer);
+            mainContainer.style.display = "none";
+            buttonContainer.style.display = "none";
+            gifContainer.style.display = "flex";
         }
     </script>
+
+</body>
+</html>
 
 </body>
 </html>
