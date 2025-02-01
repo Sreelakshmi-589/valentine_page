@@ -56,7 +56,6 @@
             background-color: wheat;
             color: black;
             z-index: 1;
-            position: absolute;
         }
         #gifContainer {
             display: none;
@@ -94,7 +93,7 @@
 
     <div id="gifContainer">
         <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-        <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
+        <p id="loveMessage">I love you Praveen!!! 💖 <br> You make my world brighter every day! 🌸</p>
     </div>
 
     <script>
@@ -104,11 +103,10 @@
         let buttonContainer = document.getElementById("buttonContainer");
         let gifContainer = document.getElementById("gifContainer");
 
-        // Keep No button in the center initially
-        noButton.style.position = "absolute";
-        noButton.style.left = "50%";
-        noButton.style.top = "50%";
-        noButton.style.transform = "translate(-50%, -50%)";
+        // Initially keep both buttons visible and centered
+        noButton.style.position = "relative";
+        noButton.style.margin = "10px"; // Provide a margin to avoid overlap
+        yesButton.style.position = "relative";
 
         // Function to make No button move away when mouse hovers over it
         function moveNoButtonOnHover() {
