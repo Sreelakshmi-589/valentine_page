@@ -42,6 +42,8 @@
         button {
             padding: 12px 24px;
             font-size: 18px;
+            width: 120px; /* Same size for both buttons */
+            height: 50px; /* Same size for both buttons */
             border: none;
             cursor: pointer;
             border-radius: 5px;
@@ -50,7 +52,6 @@
         .yes {
             background-color: whitesmoke;
             color: black;
-            z-index: 2;
         }
         .no {
             background-color: wheat;
@@ -93,7 +94,7 @@
 
     <div id="gifContainer">
         <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-        <p id="loveMessage">I love you Praveen!!! 💖 <br> You make my world brighter every day! 🌸</p>
+        <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
     </div>
 
     <script>
@@ -105,23 +106,18 @@
 
         // Initially keep both buttons visible and centered
         noButton.style.position = "relative";
-        noButton.style.margin = "10px"; // Provide a margin to avoid overlap
         yesButton.style.position = "relative";
 
-        // Function to make No button move away when mouse hovers over it
+        // Function to make No button move when hovered over
         function moveNoButtonOnHover() {
-            let windowWidth = window.innerWidth - noButton.clientWidth;
-            let windowHeight = window.innerHeight - noButton.clientHeight;
-
-            let newX = Math.random() * windowWidth;
-            let newY = Math.random() * windowHeight;
-
-            noButton.style.left = newX + "px";
-            noButton.style.top = newY + "px";
+            // Move the No button to the right side of the screen
+            noButton.style.position = "absolute";
+            noButton.style.right = "0";
+            noButton.style.top = `${Math.random() * window.innerHeight - noButton.offsetHeight}px`;
             noButton.style.transform = "none";
         }
 
-        // When mouse hovers over No button, it will move
+        // When mouse hovers over No button, it will move to the right
         noButton.addEventListener("mouseenter", moveNoButtonOnHover);
 
         // Show the GIF and message when Yes is clicked
