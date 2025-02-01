@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,6 +74,108 @@
             newYesButton.classList.add("yes");
             newYesButton.onclick = showGif;
             buttonsDiv.appendChild(newYesButton);
+        }
+    </script>
+
+</body>
+</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            font-family: 'cursive', sans-serif;
+            text-align: center;
+            background-color: pink;
+            color: white;
+            margin-top: 100px;
+        }
+        .container {
+            background: salmon;
+            padding: 30px;
+            border-radius: 20px;
+            display: inline-block;
+            position: relative;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+        }
+        .yes {
+            background-color: whitesmoke;
+            color: black;
+        }
+        .no {
+            background-color: wheat;
+            color: black;
+            z-index: 1; /* No button starts on top */
+        }
+        #gifContainer {
+            margin-top: 20px;
+        }
+        #gifContainer img {
+            width: 200px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Oyee will you be my Valentine? ❤️</h1>
+        <div class="buttons" id="buttonContainer">
+            <button class="yes" onclick="showGif()" style="position: static;">Yes</button>
+            <button class="no" id="noButton" onclick="addMoreYes()">No</button>
+        </div>
+        <div id="gifContainer">
+            <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
+        </div>
+    </div>
+
+    <script>
+        function showGif() {
+            document.getElementById("yayGif").style.display = "block";
+        }
+
+        function addMoreYes() {
+            let buttonContainer = document.getElementById("buttonContainer");
+            let noButton = document.getElementById("noButton");
+            let rect = noButton.getBoundingClientRect();
+
+            // Create a new Yes button
+            let newYesButton = document.createElement("button");
+            newYesButton.innerText = "Yes";
+            newYesButton.classList.add("yes");
+            newYesButton.onclick = showGif;
+
+            // Position the new Yes button near the No button
+            newYesButton.style.left = `${rect.left - buttonContainer.getBoundingClientRect().left}px`;
+            newYesButton.style.top = `${rect.top - buttonContainer.getBoundingClientRect().top}px`;
+
+            // Append the new Yes button
+            buttonContainer.appendChild(newYesButton);
+
+            // Slowly move the "No" button down
+            noButton.style.top = `${(parseInt(noButton.style.top) || 0) + 5}px`;
+            noButton.style.left = `${(parseInt(noButton.style.left) || 0) + 5}px`;
         }
     </script>
 
