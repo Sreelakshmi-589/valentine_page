@@ -110,8 +110,8 @@
         noButton.style.top = "50%";
         noButton.style.transform = "translate(-50%, -50%)";
 
-        // Make No button move freely across the screen
-        function moveNoButton() {
+        // Function to make No button move away when mouse hovers over it
+        function moveNoButtonOnHover() {
             let windowWidth = window.innerWidth - noButton.clientWidth;
             let windowHeight = window.innerHeight - noButton.clientHeight;
 
@@ -123,9 +123,10 @@
             noButton.style.transform = "none";
         }
 
-        // No button moves continuously
-        setInterval(moveNoButton, 500);
+        // When mouse hovers over No button, it will move
+        noButton.addEventListener("mouseenter", moveNoButtonOnHover);
 
+        // Show the GIF and message when Yes is clicked
         function showGif() {
             // Hide everything except the GIF and message
             mainContainer.style.display = "none";
@@ -133,9 +134,6 @@
             gifContainer.style.display = "flex";
         }
     </script>
-
-</body>
-</html>
 
 </body>
 </html>
