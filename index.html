@@ -22,8 +22,8 @@
             background: salmon;
             padding: 40px;
             border-radius: 20px;
-            width: 300px; /* Bigger square */
-            height: 300px;
+            width: 320px; /* Slightly bigger square */
+            height: 320px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,7 +34,6 @@
         }
         .buttons {
             margin-top: 20px;
-            position: relative;
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -42,12 +41,11 @@
         button {
             padding: 12px 24px;
             font-size: 18px;
-            width: 120px; /* Same size for both buttons */
-            height: 50px; /* Same size for both buttons */
+            width: 120px;
+            height: 50px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            position: relative;
         }
         .yes {
             background-color: whitesmoke;
@@ -56,9 +54,9 @@
         .no {
             background-color: wheat;
             color: black;
-            z-index: 1;
         }
-        #gifContainer {
+        /* Hidden message container */
+        #messageContainer {
             display: none;
             flex-direction: column;
             align-items: center;
@@ -70,66 +68,74 @@
             height: 100%;
             background: pink;
         }
-        #gifContainer img {
+        #messageContainer img {
             width: 250px;
         }
-        #loveMessage {
-            font-size: 26px;
+        #messageText {
+            font-size: 22px;
             font-weight: bold;
             margin-top: 15px;
             color: red;
+            max-width: 500px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Initial Question Box -->
     <div class="container" id="mainContainer">
         <h1>Oyee, will you be my Valentine? ❤️</h1>
     </div>
 
+    <!-- Yes & No Buttons -->
     <div class="buttons" id="buttonContainer">
         <button class="yes" id="yesButton" onclick="showGif()">Yes</button>
-        <button class="no" id="noButton">No</button>
+        <button class="no" id="noButton" onclick="showFunnyMessage()">No</button>
     </div>
 
-    <div id="gifContainer">
-        <img id="yayGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2Zya24wbjRsNHV1eGpjeDV1MTFjbGdreXEydGwybWZiOHBhbHg0YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3CZolxd8DeRy4g4fM/giphy.gif" alt="Yay!">
-        <p id="loveMessage">I love you Praveen!!! 💖 <br> My heart is full of you! 🥰 <br> You make my world brighter every day! 🌸</p>
+    <!-- Message and GIF Container -->
+    <div id="messageContainer">
+        <img id="messageGif" src="" alt="Reaction">
+        <p id="messageText"></p>
+        <button class="yes" id="forceYesButton" onclick="showFinalMessage()">Yes</button>
     </div>
 
     <script>
-        let noButton = document.getElementById("noButton");
-        let yesButton = document.getElementById("yesButton");
         let mainContainer = document.getElementById("mainContainer");
         let buttonContainer = document.getElementById("buttonContainer");
-        let gifContainer = document.getElementById("gifContainer");
+        let messageContainer = document.getElementById("messageContainer");
+        let messageText = document.getElementById("messageText");
+        let messageGif = document.getElementById("messageGif");
+        let forceYesButton = document.getElementById("forceYesButton");
 
-        // Initially keep both buttons visible and centered
-        noButton.style.position = "relative";
-        yesButton.style.position = "relative";
-
-        let noButtonPosition = 0; // This tracks how far the No button has moved (in pixels)
-
-        // Function to make No button move step by step when hovered over
-        function moveNoButtonOnHover() {
-            let stepSize = 10; // Move 10px (about 1cm) per hover
-
-            // If No button has not moved beyond screen width, move it
-            if (noButtonPosition + stepSize <= window.innerWidth - noButton.offsetWidth) {
-                noButtonPosition += stepSize;
-                noButton.style.left = `${noButtonPosition}px`;
-            }
-        }
-
-        // When mouse hovers over No button, it will move step by step
-        noButton.addEventListener("mouseenter", moveNoButtonOnHover);
-
-        // Show the GIF and message when Yes is clicked
+        // Function for Yes Button
         function showGif() {
-            // Hide everything except the GIF and message
             mainContainer.style.display = "none";
             buttonContainer.style.display = "none";
-            gifContainer.style.display = "flex";
+            messageContainer.style.display = "flex";
+
+            messageGif.src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTg0cWZhY2VqMG5ycXR5NGVnMGpwa2l3c2Y1MTYwanhsZmgxcG0weSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT39CXg70nNS0MFNLy/giphy.gif"; 
+            messageText.innerHTML = "I love you Praveen!!! 💖 <br> My heart is full of you edo! 🥰 <br> I can't wait to see you again!!! <br> Pettenn Vaa!! <br> I miss you so much <br> You make my world brighter every day! 🌸 And I just love you more everyday 😘💖";
+            forceYesButton.style.display = "none"; // Hide Yes button here
+        }
+
+        // Function for No Button
+        function showFunnyMessage() {
+            mainContainer.style.display = "none";
+            buttonContainer.style.display = "none";
+            messageContainer.style.display = "flex";
+
+            messageGif.src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWRxMDdtYWc5YmVhcXNtdWdiYm51ZTU4cWM4d2VtcXluMnJncTB0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PtDAIfrd8zxa8/giphy.gif"; // Funny GIF
+            messageText.innerHTML = "Ohh, kollalloo.. why would you click on this??? 😡 Kollada.. You have no other option left other than clicking on YES!! <br> You are stuck with me for life eda mwone!! 😈 <br> So click on YES!!";
+
+            forceYesButton.style.display = "block"; // Show Yes button here
+        }
+
+        // Function for Final Valentine's Day Message
+        function showFinalMessage() {
+            messageGif.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnhlOTV5ZzN5emc5c3pwY3M0Y2dsMjFocG1pbHExdHFndWFtenM3OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTdcifPZLpDjL1e/giphy.gif"; // Romantic GIF
+            messageText.innerHTML = "Happy Valentine's Day Edo!! 💝<br> Sending truckloads of love, hugs, and kisses! 😘💖";
+            forceYesButton.style.display = "none"; // Hide Yes button after clicking
         }
     </script>
 
